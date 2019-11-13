@@ -3,15 +3,15 @@ import requests
 from pprint import pprint
 
 
-def hosp_list(query):    
+def hosp_list(lat=37.5585146, lng=127.0331892):    
     url = "http://apis.data.go.kr/B551182/hospInfoService/getHospBasisList"
     default_key = "3wlHL6g1M3i2oO2cnR44opHmafh54ifadIuEPG/oNu09j7iaYXKYs87dgFRZDsxfSWwzzJoVgqRhKyLHUIl96A=="
     params = {
       'pageNo': 1,
       'numOfRows': 3,
       'ServiceKey': default_key,
-      'searchKey': query,
-      'zipCd': 2090,
+      'mapY': lat,
+      'mapX': lng,      
       '_type': 'json'
     }
     r = requests.get(url, params=params)    
@@ -23,8 +23,10 @@ def pharm_list(lat=37.5585146, lng=127.0331892):
     default_key = "3wlHL6g1M3i2oO2cnR44opHmafh54ifadIuEPG/oNu09j7iaYXKYs87dgFRZDsxfSWwzzJoVgqRhKyLHUIl96A=="
     params = {
       'pageNo': 1,
-      'numOfRows': 10,
+      'numOfRows': 3,
       'ServiceKey': default_key,      
+      'mapY': lat,
+      'mapX': lng,
       '_type': 'json'
     }
     r = requests.get(url, params=params)
@@ -32,7 +34,7 @@ def pharm_list(lat=37.5585146, lng=127.0331892):
 
 
 def test_run():
-    clinics = hosp_list("이비인후과")
+    clinics = hosp_list()
     pprint(clinics['response']['body']['items']['item'])
     pprint(pharm_list())
 
